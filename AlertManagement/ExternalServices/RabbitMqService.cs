@@ -6,12 +6,13 @@ namespace AlertManagement.ExternalServices
 {
     public class RabbitMqService
     {
-        private readonly string _hostname = "localhost:5672";
+        private readonly string _hostname = "localhost";
+        private readonly int _port = 5672;
         private IConnection _connection;
 
         public RabbitMqService()
         {
-            var factory = new ConnectionFactory() { HostName = _hostname };
+            var factory = new ConnectionFactory() { HostName = _hostname, Port = _port };
             _connection = factory.CreateConnection();
         }
 

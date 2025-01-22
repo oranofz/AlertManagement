@@ -1,4 +1,5 @@
 ﻿using AlertManagement.Models;
+using AlertManagement.Repositories.Interfaces;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
@@ -9,17 +10,18 @@ namespace AlertManagement.ExternalServices
     public class FlightAlertConsumer : BackgroundService
     {
         private readonly string _hostname = "localhost";
+        private readonly int _port = 5672;
         private readonly string _flightAlertsQueue = "flight_alerts";
-        private readonly AlertService _alertService;
+        private readonly IServiceProvider _serviceProvider;
 
-        public FlightAlertConsumer(AlertService alertService)
+        public FlightAlertConsumer(IServiceProvider serviceProvider)
         {
-            _alertService = alertService;
+            _serviceProvider = serviceProvider;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            ConnectionFactory factory = new ConnectionFactory() { HostName = _hostname };
+            ConnectionFactory factory = new ConnectionFactory() { HostName = _hostname, Port = _port };
 
             using (IConnection connection = factory.CreateConnection())
             {
@@ -41,7 +43,13 @@ namespace AlertManagement.ExternalServices
 
                         if (flightAlert != null)
                         {
-                            await _alertService.ProcessFlightAlert(flightAlert);
+                            using (var scope = _serviceProvider.CreateScope())
+                            {
+                                IFlightAlertRepository flightAlertRepository = scope.ServiceProvider.GetRequiredService<IFlightAlertRepository>();
+                                flightAlert = await flightAlertRepository.CreateFlightAlert(flightAlert);
+                                AlertService alertService = scope.ServiceProvider.GetRequiredService<AlertService>();
+                                await alertService.ProcessFlightAlert(flightAlert);
+                            }
                         }
                     };
 
