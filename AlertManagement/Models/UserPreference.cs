@@ -6,8 +6,8 @@
         public int UserId { get; set; }
         public decimal MinPrice { get; set; }
         public decimal MaxPrice { get; set; }
-        public string Origin { get; set; }
-        public string Destination { get; set; }
+        public string Origin { get; set; } = String.Empty;
+        public string Destination { get; set; } = String.Empty;
         public User? User { get; set; }
     }
 

@@ -6,9 +6,9 @@ namespace AlertManagement.Models
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
-        public DbSet<User> Users { get; set; }
-        public DbSet<UserPreference> UserPreferences { get; set; }
-        public DbSet<FlightAlert> FlightAlerts { get; set; }
+        public DbSet<User> Users { get; set; } = null!;
+        public DbSet<UserPreference> UserPreferences { get; set; } = null!;
+        public DbSet<FlightAlert> FlightAlerts { get; set; } = null!;
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
