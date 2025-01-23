@@ -16,13 +16,13 @@ namespace AlertManagement.Repositories.Impl
         public async Task<UserPreference> CreateUserPreferences(UserPreference preference)
         {
             await _context.UserPreferences.AddAsync(preference);
-            int result = await _context.SaveChangesAsync();
-            return result > 0 ? preference : null;
+            await _context.SaveChangesAsync();
+            return preference;
         }
 
-        public async Task<UserPreference> GetUserPreferenceById(int id)
+        public async Task<UserPreference?> GetUserPreferenceById(int id)
         {
-            UserPreference preference = await _context.UserPreferences.FirstOrDefaultAsync(up => up.Id == id);
+            UserPreference? preference = await _context.UserPreferences.FirstOrDefaultAsync(up => up.Id == id);
             return preference;
         }
 
@@ -53,7 +53,7 @@ namespace AlertManagement.Repositories.Impl
 
         public async Task<bool> DeleteUserPreference(int id)
         {
-            UserPreference preferences = await _context.UserPreferences
+            UserPreference? preferences = await _context.UserPreferences
                                              .FirstOrDefaultAsync(up => up.Id == id);
             if (preferences == null)
             {

@@ -35,9 +35,9 @@ namespace AlertManagement.Services.Impl
             return preferences;
         }
 
-        public async Task<UserPreference> GetUserPreference(int id)
+        public async Task<UserPreference?> GetUserPreference(int id)
         {
-            UserPreference preference = await _userPreferenceRepository.GetUserPreferenceById(id);
+            UserPreference? preference = await _userPreferenceRepository.GetUserPreferenceById(id);
             return preference;
         }
     }

@@ -19,7 +19,7 @@ namespace AlertManagement.Repositories.Impl
             return user;
         }
 
-        public async Task<User> GetUserById(int id)
+        public async Task<User?> GetUserById(int id)
         {
             return await _context.Users.FindAsync(id);
         }

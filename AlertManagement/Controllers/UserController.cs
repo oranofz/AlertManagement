@@ -41,7 +41,7 @@ namespace FlightAlertSystem.Controllers
         {
             try
             {
-                User user = await _userService.GetUser(id);
+                User? user = await _userService.GetUser(id);
                 if (user == null)
                 {
                     return NotFound(ResponseMessage.UserNotExists);
@@ -59,7 +59,7 @@ namespace FlightAlertSystem.Controllers
         {
             try
             {
-                User user = await _userService.GetUser(updatedUser.Id);
+                User? user = await _userService.GetUser(updatedUser.Id);
                 if (user == null)
                 {
                     return NotFound(ResponseMessage.UserNotExists);
@@ -82,7 +82,7 @@ namespace FlightAlertSystem.Controllers
         {
             try
             {
-                User user = await _userService.GetUser(id);
+                User? user = await _userService.GetUser(id);
                 if (user == null)
                 {
                     return NotFound(ResponseMessage.UserNotExists);

@@ -39,7 +39,7 @@ namespace FlightAlertSystem.Controllers
         {
             try
             {
-                UserPreference userPreference = await _userPreferencesService.GetUserPreference(id);
+                UserPreference? userPreference = await _userPreferencesService.GetUserPreference(id);
                 if (userPreference == null)
                 {
                     return NotFound(ResponseMessage.UserPreferenceNotExists);
@@ -94,7 +94,7 @@ namespace FlightAlertSystem.Controllers
         {
             try
             {
-                UserPreference preference = await _userPreferencesService.GetUserPreference(id);
+                UserPreference? preference = await _userPreferencesService.GetUserPreference(id);
                 if (preference == null)
                 {
                     return NotFound(ResponseMessage.UserPreferenceNotExists);

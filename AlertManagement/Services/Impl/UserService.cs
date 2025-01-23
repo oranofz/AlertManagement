@@ -19,9 +19,9 @@ namespace AlertManagement.Services.Impl
             return createdUser;
         }
 
-        public async Task<User> GetUser(int id)
+        public async Task<User?> GetUser(int id)
         {
-            User user = await _userRepository.GetUserById(id);
+            User? user = await _userRepository.GetUserById(id);
             return user;
         }
 
